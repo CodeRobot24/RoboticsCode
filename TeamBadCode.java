@@ -16,23 +16,24 @@ public class TeamBadCode extends OpMode {
     Servo leftClaw;
     Servo rightClaw;
 
-    public static final Gamepad.Type controller = Gamepad.Type.XBOX_360;
-    String holdController = controller.name();
 
     @Override
     public void init() {
-        holdController.hashCode();
+        
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
-        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        
+        leftClaw = hardwareMap.get(Servo.class, "leftClaw");
+        rightClaw = hardwareMap.get(Servo.class, "rightClaw");
 
         leftClaw.setPosition(0.5);
         rightClaw.setPosition(0.5);
@@ -59,11 +60,11 @@ public class TeamBadCode extends OpMode {
         rightBack.setPower(0);
     }
     public void openOrCloseClaws(){
-        while(gamepad1.left_bumper){
+        if(gamepad1.left_bumper){
             leftClaw.setPosition(leftClaw.getPosition() - 0.01);
             rightClaw.setPosition(rightClaw.getPosition() + 0.01);
         }
-        while(gamepad1.right_bumper){
+        if(gamepad1.right_bumper){
             leftClaw.setPosition(leftClaw.getPosition() + 0.01);
             rightClaw.setPosition(rightClaw.getPosition() - 0.01);
         }
